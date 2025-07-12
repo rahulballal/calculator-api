@@ -1,9 +1,12 @@
-import { Hono } from 'hono'
+import { swaggerUI } from "@hono/swagger-ui";
+import { app } from "./app";
+import { configureOpenAPI } from "./openapi";
 
-const app = new Hono()
+app
+  .get("/health", (c) => {
+    return c.json({ status: "Up" }, 200);
+  })
+  .get("/openapi", configureOpenAPI(app))
+  .get("/swaggerui", swaggerUI({ url: "/openapi" }));
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
-
-export default app
+export default app;
