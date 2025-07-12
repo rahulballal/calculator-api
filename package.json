@@ -5,7 +5,8 @@
 		"test:unit": "bun test src/**/*.test.ts",
 		"lint": "biome lint --write",
 		"format": "biome format --write",
-		"check": "biome check --write"
+		"check": "biome check --write",
+		"save-schema": "curl -o openapi-spec.json http://localhost:3000/openapi"
 	},
 	"dependencies": {
 		"@hono/swagger-ui": "0.5.2",

@@ -7,7 +7,7 @@ app
 	.get("/health", (c) => {
 		return c.json({ status: "Up" }, 200);
 	})
-  .route("/calculators", TermDepositRouter)
+	.route("/calculators", TermDepositRouter)
 	.get("/openapi", configureOpenAPI(app))
 	.get("/swaggerui", swaggerUI({ url: "/openapi" }));
 

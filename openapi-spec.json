@@ -1,0 +1,137 @@
+{
+	"openapi": "3.1.0",
+	"info": {
+		"title": "Calculator API",
+		"description": "This is the API documentation a financial calculations.",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{ "url": "http://localhost:3000", "description": "Local Server" }
+	],
+	"paths": {
+		"/calculators/term-deposit": {
+			"post": {
+				"responses": {
+					"200": {
+						"description": "Successful calculation of term deposit",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"principal": { "type": "number", "minimum": 0 },
+										"ratePerAnnum": {
+											"type": "number",
+											"minimum": 0,
+											"maximum": 100
+										},
+										"term": { "type": "number", "minimum": 3, "maximum": 60 },
+										"interest": { "type": "number", "exclusiveMinimum": 0 },
+										"totalAmount": { "type": "number", "exclusiveMinimum": 0 },
+										"interestBreakdown": {
+											"type": "object",
+											"properties": {
+												"monthlyInterest": {
+													"type": "number",
+													"exclusiveMinimum": 0
+												},
+												"quarterlyInterest": {
+													"type": "number",
+													"exclusiveMinimum": 0
+												},
+												"endOfTermInterest": {
+													"type": "number",
+													"exclusiveMinimum": 0
+												}
+											},
+											"required": [
+												"monthlyInterest",
+												"quarterlyInterest",
+												"endOfTermInterest"
+											],
+											"additionalProperties": false
+										}
+									},
+									"required": [
+										"principal",
+										"ratePerAnnum",
+										"term",
+										"interest",
+										"totalAmount",
+										"interestBreakdown"
+									],
+									"additionalProperties": false
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "User input error. Bad Request.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"name": { "type": "string" },
+										"message": { "type": "string" },
+										"issues": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"code": { "type": "string" },
+													"expected": { "type": "string" },
+													"received": { "type": "string" },
+													"path": {
+														"type": "array",
+														"items": {
+															"anyOf": [
+																{ "type": "string" },
+																{ "type": "number" }
+															]
+														}
+													},
+													"message": { "type": "string" }
+												},
+												"required": ["code", "path", "message"],
+												"additionalProperties": false
+											}
+										}
+									},
+									"required": ["name", "message", "issues"],
+									"additionalProperties": false
+								}
+							}
+						}
+					}
+				},
+				"operationId": "postCalculatorsTerm-deposit",
+				"tags": ["term-deposit"],
+				"parameters": [],
+				"summary": "Calculate term deposit",
+				"description": "Calculate the term deposit based on the provided parameters.",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"principal": { "type": "number", "minimum": 0 },
+									"ratePerAnnum": {
+										"type": "number",
+										"minimum": 0,
+										"maximum": 100
+									},
+									"term": { "type": "number", "minimum": 3, "maximum": 60 }
+								},
+								"required": ["principal", "ratePerAnnum", "term"],
+								"additionalProperties": false
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": { "schemas": {} }
+}
