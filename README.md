@@ -91,41 +91,5 @@ curl -X POST http://localhost:3000/calculators/term-deposit \
     "term": 36
   }'
 ```
-
-**Request Body:**
-```json
-{
-  "principal": number,    // Non-negative amount
-  "ratePerAnnum": number, // Interest rate (0-100)
-  "term": number         // Months (3-60)
-}
-```
-
-**Success Response (200):**
-```json
-{
-  "principal": number,
-  "ratePerAnnum": number,
-  "term": number,
-  "interest": number,
-  "totalAmount": number,
-  "interestBreakdown": {
-    "monthlyInterest": number,
-    "quarterlyInterest": number,
-    "endOfTermInterest": number
-  }
-}
-```
-
-**Error Response (400):**
-```json
-{
-  "success": false,
-  "error": {
-    "name": "ZodError",
-    "message": string
-  }
-}
-```
-
-
+[Success/Error Output Contracts](./src/term-deposit/openapi-contracts.ts)
+[Generic Bad Request Error Contract](./src/openapi-shared-contracts.ts)
